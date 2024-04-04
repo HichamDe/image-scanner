@@ -1,27 +1,27 @@
 import React, { useState, useEffect } from 'react'
 import { View, Text, Image, TouchableOpacity } from 'react-native'
-import DocumentScanner from 'react-native-document-scanner-plugin'
+import ImagePicker from 'react-native-image-crop-picker';
 
 export default () => {
+
   const [scannedImage, setScannedImage] = useState("");
 
-  const scanDocument = async () => {
-    // start the document scanner
-    const { scannedImages } = await DocumentScanner.scanDocument({
-    })
-
-    // get back an array with scanned image file paths
-    if (scannedImages.length > 0) {
-      // set the img src, so we can view the first scanned image
-      setScannedImage(scannedImages[0])
-    }
+  function scan() {
+    ImagePicker.openCamera({
+      width: 300,
+      height: 400,
+      cropping: true,
+    }).then(image => {
+      console.log(image);
+      setScannedImage(image.path);
+    }).catch(err => console.log(err));
   }
 
   return (
     <View style={{ flex: 1, borderWidth: 1, backgroundColor: "black", justifyContent: "center", alignContent: "center" }}>
-      <Image resizeMode='contain' source={{ uri: scannedImage }} style={{ height: "50%", width: "100%" }} />
+      { scannedImage ? <Image resizeMode='contain' source={{ uri: scannedImage }} style={{ height: "50%", width: "100%" }} /> : ""}
       <TouchableOpacity
-        onPress={scanDocument}
+        onPress={scan}
         style={{
           width: 70,
           height: 70,

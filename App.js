@@ -7,7 +7,8 @@ export default () => {
 
   const scanDocument = async () => {
     // start the document scanner
-    const { scannedImages } = await DocumentScanner.scanDocument({})
+    const { scannedImages } = await DocumentScanner.scanDocument({
+    })
 
     // get back an array with scanned image file paths
     if (scannedImages.length > 0) {
@@ -17,22 +18,22 @@ export default () => {
   }
 
   return (
-    <View style={{ flex: 1, borderWidth: 1, borderColor: "red", }}>
-      <Image source={{ uri: scannedImage }} style={{ height: "50%", borderWidth: 1, width: "100%", borderColor: "white" }} />
+    <View style={{ flex: 1, borderWidth: 1, backgroundColor: "black", justifyContent: "center", alignContent: "center" }}>
+      <Image resizeMode='contain' source={{ uri: scannedImage }} style={{ height: "50%", width: "100%" }} />
       <TouchableOpacity
         onPress={scanDocument}
         style={{
           width: 70,
           height: 70,
           borderRadius: 35,
-          backgroundColor: "black",
+          backgroundColor: "white",
           justifyContent: "center",
           alignItems: "center",
           position: "absolute",
           bottom: 20,
           alignSelf: "center"
         }}>
-        <Text style={{ color: "white" }}>Scan</Text>
+        <Text style={{ color: "black" }}>Scann</Text>
       </TouchableOpacity>
     </View>
   )
